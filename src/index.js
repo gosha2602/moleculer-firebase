@@ -143,6 +143,8 @@ module.exports = {
 			credential: admin.credential.cert(this.schema.settings.account),
 			databaseURL: this.schema.settings.databaseURL
 		});
+		if (this.firebase) this.logger.info("init");
+		else this.logger.error("error init");
 	},
 
 	/**
