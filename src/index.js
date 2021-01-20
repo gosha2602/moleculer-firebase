@@ -14,7 +14,8 @@ module.exports = {
 	 * Default settings
 	 */
 	settings: {
-		databaseURL: ""
+		databaseURL: "",
+		account: null
 	},
 
 	/**
@@ -139,7 +140,7 @@ module.exports = {
 	 */
 	created() {
 		this.firebase = admin.initializeApp({
-			credential: admin.credential.applicationDefault(),
+			credential: admin.credential.cert(this.schema.settings.account),
 			databaseURL: this.schema.settings.databaseURL
 		});
 	},
