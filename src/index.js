@@ -138,7 +138,12 @@ module.exports = {
 	/**
 	 * Service created lifecycle event handler
 	 */
-	created() {
+	created() {},
+
+	/**
+	 * Service started lifecycle event handler
+	 */
+	started() {
 		this.firebase = admin.initializeApp({
 			credential: admin.credential.cert(this.schema.settings.account),
 			databaseURL: this.schema.settings.databaseURL
@@ -146,11 +151,6 @@ module.exports = {
 		if (this.firebase) this.logger.info("init");
 		else this.logger.error("error init");
 	},
-
-	/**
-	 * Service started lifecycle event handler
-	 */
-	started() {},
 
 	/**
 	 * Service stopped lifecycle event handler
