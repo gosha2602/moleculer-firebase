@@ -150,6 +150,7 @@ module.exports = {
 		});
 		if (this.firebase) this.logger.info("init");
 		else this.logger.error("error init");
+		return Promise.resolve(true);
 	},
 
 	/**
