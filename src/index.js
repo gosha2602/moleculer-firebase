@@ -5,8 +5,23 @@
  */
 // export GOOGLE_APPLICATION_CREDENTIALS="/home/user/Downloads/service-account-file.json"
 
+/**
+ * @typedef {Object} UserRecord
+ * @property {String} uid
+ * @property {String} phoneNumber
+ * @property {String} displayName
+ *
+ * @property {boolean} disabled
+ * @property {Object} customClaims
+ */
 "use strict";
 const admin = require("firebase-admin");
+
+/**
+ * Firebase connect service
+ * @name moleculer-firebase
+ * @module Service
+ */
 module.exports = {
 	name: "firebase",
 
@@ -25,6 +40,15 @@ module.exports = {
 		test(ctx) {
 			return "Hello " + (ctx.params.name || "Anonymous");
 		},
+		/**
+		 * get user by uid
+		 * @actions
+		 *
+		 * @param {String} uid firebase uid
+		 *
+		 * @returns {UserRecord} record of firebase user
+		 *
+		 */
 		getUser: {
 			params: {
 				uid: "string"
@@ -33,6 +57,13 @@ module.exports = {
 				return await this._getUser(ctx.params.uid);
 			}
 		},
+		/**
+		 * get user by email
+		 * @actions		 *
+		 * @param {String} email user email		 *
+		 * @returns {UserRecord} record of firebase user
+		 *
+		 */
 		getUserByEmail: {
 			params: {
 				email: "string"
@@ -41,6 +72,13 @@ module.exports = {
 				return await this._getUserByEmail(ctx.params.email);
 			}
 		},
+		/**
+		 * get user by phone
+		 * @actions		 *
+		 * @param {String} phone user phone		 *
+		 * @returns {UserRecord} record of firebase user
+		 *
+		 */
 		getUserByPhoneNumber: {
 			params: {
 				phone: "string"
@@ -109,21 +147,55 @@ module.exports = {
 	 * Methods
 	 */
 	methods: {
+		/**
+		 * getUser
+		 * @param {string} uid
+		 * @returns {Promise<UserRecord>}
+		 */
 		_getUser(uid) {
 			return this.firebase.auth().getUser(uid);
 		},
+		/**
+		 * getUser
+		 * @param {string} email
+		 * @returns {Promise<UserRecord>}
+		 */
 		_getUserByEmail(email) {
 			return this.firebase.auth().getUserByEmail(email);
 		},
+		/**
+		 * getUser
+		 * @param {string} phone
+		 * @returns {Promise<UserRecord>}
+		 */
 		_getUserByPhoneNumber(phone) {
 			return this.firebase.auth().getUserByPhoneNumber(phone);
 		},
+
+		/**
+		 * createUser
+		 * @param {UserRecord} params
+		 * @returns {Promise<UserRecord>}
+		 */
 		_createUser(params) {
 			return this.firebase.auth().createUser(params);
 		},
+
+		/**
+		 *
+		 * @param {UserRecord} params
+		 * @returns {Promise<UserRecord>}
+		 */
+
 		_updateUser(params) {
 			return this.firebase.auth().updateUser(params.uid, params);
 		},
+
+		/**
+		 *
+		 * @param {string} uid
+		 * @returns {Promise<UserRecord>}
+		 */
 		_deleteUser(uid) {
 			return this.firebase.auth().deleteUser(uid);
 		},
