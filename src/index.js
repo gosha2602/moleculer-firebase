@@ -132,6 +132,9 @@ module.exports = {
 		},
 		_verifyIdToken(idToken) {
 			return this.firebase.auth().verifyIdToken(idToken);
+		},
+		_setCustomUserClaims(uid, claims) {
+			return this.firebase.auth().setCustomUserClaims(uid, claims);
 		}
 	},
 
@@ -148,8 +151,8 @@ module.exports = {
 			credential: admin.credential.cert(this.schema.settings.account),
 			databaseURL: this.schema.settings.databaseURL
 		});
-		if (this.firebase) this.logger.info("init");
-		else this.logger.error("error init");
+		if (this.firebase) this.logger.info("init firebase client");
+		else this.logger.error("error init firebase client");
 		return Promise.resolve(true);
 	},
 

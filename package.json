@@ -1,5 +1,5 @@
 {
-	"name": "@pointprism:moleculer-firebase",
+	"name": "@pointprism/moleculer-firebase",
 	"version": "0.1.1",
 	"description": "moleculer wrapper for firebase",
 	"main": "index.js",
